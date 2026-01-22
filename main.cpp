@@ -2,6 +2,7 @@
 
 
 #include "rtcr_rx8111_driver.h"
+#include "i2cDriver.h"
 #include <iostream>
 
 
@@ -19,6 +20,15 @@ int main() {
 
 	//Driver testing
 	//Print results to console
+
+	/* Environment initialization */
+#if defined(PHYSICAL_ENVIRONMENT)
+	std::cout << "Running in PHYSICAL_ENVIRONMENT mode" << std::endl;
+	MX_I2C1_Init();
+	MngI2CR_Init();
+#else
+	std::cout << "Running in TEST_ENVIRONMENT mode" << std::endl;
+#endif
 
 	/*  Function tests  */
 
