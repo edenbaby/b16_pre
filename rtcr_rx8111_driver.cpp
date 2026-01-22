@@ -175,9 +175,10 @@ void WriteRTCR_RX8111CE_Register(void)
 	}
 #endif
 
-
-	//WriteI2CR_ToRegister(VsRTCR_h_RX8111CE.i2c_address, VsRTCR_h_RX8111CE.register_address,
-	//	&VeRTCR_y_regData, 1);
+#if defined(PHYSICAL_ENVIRONMENT)
+	WriteI2CR_ToRegister(VsRTCR_h_RX8111CE.i2c_address, VsRTCR_h_RX8111CE.register_address,
+		&VeRTCR_y_regData, 1);
+#endif
 
 }
 
@@ -219,13 +220,15 @@ BYTE ReadRTCR_RX8111CE_Register(void)
 	}
 #endif
 
+#if defined(PHYSICAL_ENVIRONMENT)
+	ReadI2CR_FromRegister(VsRTCR_h_RX8111CE.i2c_address, VsRTCR_h_RX8111CE.register_address,
+		&VeRTCR_y_regData, 1);
 
-	//ReadI2CR_FromRegister(VsRTCR_h_RX8111CE.i2c_address, VsRTCR_h_RX8111CE.register_address,
-	//	&VeRTCR_y_regData, 1);
-
-	//VsRTCR_h_RX8111CE.register_value = VeRTCR_y_regData;
-
+	VsRTCR_h_RX8111CE.register_value = VeRTCR_y_regData;
+#else
 	VeRTCR_y_regData = VsRTCR_h_RX8111CE.register_value;
+#endif
+
 	return VeRTCR_y_regData;
 }
 
